@@ -1,0 +1,30 @@
+#####################################################################
+# Simple Data Lakehouse based on Dremio + Apache Iceberg + Minio(S3)
+#####################################################################
+
+version: "3"
+
+services:
+  # Nessie Catalog Server Using In-Memory Store
+  nessie:
+    image: projectnessie/nessie:latest
+    container_name: nessie
+    networks:
+      iceberg:
+    ports:
+      - 19120:19120
+  # Dremio
+  dremio:
+    platform: linux/x86_64
+    image: dremio/dremio-oss:latest
+    ports:
+      - 9047:9047
+      - 31010:31010
+      - 32010:32010
+    container_name: dremio
+    environment:
+      - DREMIO_JAVA_SERVER_EXTRA_OPTS=-Dpaths.dist=file:///opt/dremio/data/dist
+    networks:
+      iceberg:
+networks:
+  iceberg:

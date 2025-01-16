@@ -1,2 +1,6 @@
-# experient-data-lake
-Experient Data Lake
+# Experient Data Lake
+
+A data lake technology stack based on Apache Iceberg 
+
+
+
